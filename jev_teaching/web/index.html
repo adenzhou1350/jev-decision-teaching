@@ -1,0 +1,2002 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Jev 决策实验室</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f6f2;
+        --paper: #fff;
+        --ink: #172a28;
+        --muted: #6c7b75;
+        --line: #dde5dd;
+        --green: #176d54;
+        --mint: #e6f4e9;
+        --amber: #b77a20;
+        --red: #b54242;
+        --shadow: 0 8px 30px #243d2910;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          14px/1.6 system-ui,
+          -apple-system,
+          "Segoe UI",
+          "Microsoft YaHei",
+          sans-serif;
+      }
+      button,
+      select {
+        font: inherit;
+      }
+      button,
+      select {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      button {
+        cursor: pointer;
+        padding: 9px 14px;
+        transition:
+          background 0.15s,
+          transform 0.15s;
+      }
+      button:hover:not(:disabled) {
+        background: #edf4ed;
+      }
+      button:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      button:focus-visible,
+      select:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #81b9a5;
+        outline-offset: 3px;
+      }
+      select {
+        width: 100%;
+        padding: 10px 11px;
+      }
+      a {
+        color: var(--green);
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(25px, 3vw, 36px);
+        line-height: 1.3;
+        letter-spacing: -1px;
+        font-weight: 720;
+      }
+      h2 {
+        font-size: 16px;
+        font-weight: 650;
+      }
+      h3 {
+        font-size: 13px;
+        font-weight: 650;
+      }
+      small,
+      .muted {
+        color: var(--muted);
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .shell {
+        max-width: 1320px;
+        margin: auto;
+        padding: 28px 32px 44px;
+      }
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+      .brand {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        display: flex;
+        gap: 9px;
+        align-items: center;
+      }
+      .brandmark {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: var(--green);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        letter-spacing: 0;
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .status i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #adbbb2;
+      }
+      .status.ready i {
+        background: var(--green);
+        box-shadow: 0 0 0 4px #176d5411;
+      }
+      .status.error i {
+        background: var(--red);
+      }
+      .intro {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 24px;
+      }
+      .intro p {
+        margin-top: 10px;
+        max-width: 680px;
+        color: var(--muted);
+      }
+      .tag {
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        white-space: nowrap;
+        background: #fff8;
+      }
+      .tabs {
+        display: flex;
+        gap: 24px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 23px;
+      }
+      .tab {
+        border: 0;
+        border-radius: 0;
+        background: none;
+        padding: 10px 0 13px;
+        font-size: 14px;
+        color: var(--muted);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+      }
+      .tab[aria-selected="true"] {
+        color: var(--green);
+        border-bottom-color: var(--green);
+        font-weight: 650;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px 18px;
+        background: #ffffff90;
+      }
+      .metric.emphasis {
+        background: var(--green);
+        border-color: var(--green);
+        color: #fff;
+      }
+      .metric-head {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .emphasis .metric-head,
+      .emphasis .metric-foot {
+        color: #d4e9de;
+      }
+      .metric-value {
+        font-size: 31px;
+        font-weight: 650;
+        line-height: 1.25;
+        margin: 7px 0 3px;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -1px;
+      }
+      .metric-foot {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .workspace {
+        display: grid;
+        grid-template-columns: 230px minmax(280px, 1fr) 265px;
+        gap: 18px;
+        align-items: start;
+      }
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+      .controls,
+      .inspector {
+        padding: 19px;
+      }
+      .panel-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 19px;
+      }
+      .stepno {
+        font-size: 10px;
+        color: var(--green);
+        border: 1px solid #c2d8c9;
+        border-radius: 5px;
+        padding: 1px 5px;
+        letter-spacing: 0.6px;
+      }
+      .field {
+        margin-bottom: 17px;
+      }
+      .field label {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      .level-note {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 7px;
+      }
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+      }
+      .primary {
+        background: var(--green);
+        border-color: var(--green);
+        color: white;
+      }
+      .primary:hover:not(:disabled) {
+        background: #105942;
+      }
+      .full {
+        width: 100%;
+        margin-top: 8px;
+      }
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 19px 0;
+      }
+      .manual {
+        display: grid;
+        grid-template-columns: repeat(3, 36px);
+        gap: 5px;
+        justify-content: center;
+        margin: 13px 0 8px;
+      }
+      .manual button {
+        padding: 5px 0;
+        height: 34px;
+        font-size: 18px;
+      }
+      .manual button:first-child {
+        grid-column: 2;
+      }
+      .manual button:nth-child(2) {
+        grid-column: 1;
+      }
+      .keyhint {
+        text-align: center;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      kbd {
+        font: 11px system-ui;
+        background: #f2f4f0;
+        border: 1px solid var(--line);
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      .game-panel {
+        overflow: hidden;
+      }
+      .game-top {
+        padding: 17px 21px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .split-badge {
+        font-size: 10px;
+        padding: 3px 7px;
+        border-radius: 5px;
+        background: var(--mint);
+        color: var(--green);
+      }
+      .board-wrap {
+        padding: 28px 20px;
+        background: radial-gradient(ellipse at center, #f5f8f1 0%, #fbfcf9 70%);
+        min-height: 385px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .board {
+        display: grid;
+        gap: 3px;
+        max-width: 100%;
+        width: min(100%, 360px);
+        aspect-ratio: var(--aspect, 1);
+      }
+      .cell {
+        position: relative;
+        border-radius: 5px;
+        background: #e9eee1;
+        min-width: 0;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cell.wall {
+        background: #a8b9a5;
+        box-shadow: inset 0 -3px 0 #91a58e;
+      }
+      .cell.goal::before {
+        content: "";
+        height: 28%;
+        width: 28%;
+        border: 2px dashed #90a970;
+        border-radius: 50%;
+      }
+      .box {
+        position: absolute;
+        width: 76%;
+        height: 76%;
+        background: #c5964b;
+        border: 2px solid #aa7f38;
+        border-radius: 5px;
+        box-shadow:
+          inset 0 0 0 3px #d6b274,
+          inset 0 -5px 0 #b4853c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6f4e24;
+        font-size: clamp(12px, 2vw, 22px);
+        font-weight: 600;
+      }
+      .box.on-goal {
+        background: #4e9971;
+        border-color: #37845b;
+        box-shadow:
+          inset 0 0 0 3px #7cb894,
+          inset 0 -5px 0 #3b865e;
+        color: white;
+      }
+      .player {
+        position: absolute;
+        width: 61%;
+        height: 61%;
+        border-radius: 50%;
+        background: var(--green);
+        border: 3px solid white;
+        box-shadow: 0 2px 5px #14382928;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: clamp(12px, 2vw, 20px);
+        font-weight: 700;
+      }
+      .legend {
+        display: flex;
+        justify-content: center;
+        gap: 17px;
+        font-size: 10px;
+        color: var(--muted);
+        padding: 0 15px 18px;
+        background: #fbfcf9;
+      }
+      .legend-item {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .swatch {
+        width: 11px;
+        height: 11px;
+        display: inline-block;
+        border-radius: 2px;
+        background: #c5964b;
+      }
+      .swatch.person {
+        background: var(--green);
+        border-radius: 50%;
+      }
+      .swatch.target {
+        background: transparent;
+        border: 1px dashed #90a970;
+        border-radius: 50%;
+      }
+      .game-footer {
+        padding: 13px 19px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        gap: 15px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .result {
+        font-size: 12px;
+        display: flex;
+        gap: 7px;
+        align-items: center;
+      }
+      .result::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #91a58e;
+      }
+      .result.win {
+        color: var(--green);
+        font-weight: 650;
+      }
+      .result.win::before {
+        background: var(--green);
+      }
+      .result.fail {
+        color: var(--red);
+      }
+      .result.fail::before {
+        background: var(--red);
+      }
+      .counters {
+        display: flex;
+        gap: 16px;
+        font-size: 11px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .counters b {
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .prob-row {
+        margin-bottom: 13px;
+      }
+      .prob-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 12px;
+      }
+      .prob-meta span:last-child {
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+      }
+      .prob-track {
+        height: 6px;
+        background: #edf1eb;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .prob-fill {
+        height: 100%;
+        width: 0;
+        background: #a9bbae;
+        border-radius: 99px;
+        transition: width 0.25s ease;
+      }
+      .prob-row.selected .prob-fill {
+        background: var(--green);
+      }
+      .prob-row.selected .prob-meta {
+        font-weight: 650;
+        color: var(--green);
+      }
+      .model-note {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+      .latency {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        margin: 19px 0 13px;
+        color: var(--muted);
+      }
+      .latency b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .log {
+        max-height: 149px;
+        overflow: auto;
+        font:
+          11px/1.8 ui-monospace,
+          Consolas,
+          monospace;
+        color: var(--muted);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .log-entry {
+        display: flex;
+        gap: 9px;
+      }
+      .log-entry span:first-child {
+        opacity: 0.6;
+        flex-shrink: 0;
+      }
+      .note {
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 17px 19px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        background: #eef2e9;
+      }
+      .note p {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 5px;
+      }
+      .flow {
+        font-size: 13px;
+        color: var(--green);
+        font-weight: 550;
+        margin-top: 6px;
+        word-spacing: 5px;
+      }
+      .notice {
+        padding: 11px 15px;
+        background: #fff4e4;
+        border: 1px solid #ead3ad;
+        color: #815b20;
+        border-radius: 9px;
+        font-size: 12px;
+        margin: 0 0 18px;
+        white-space: pre-wrap;
+      }
+      .placeholder {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        max-width: 300px;
+        margin: auto;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 24px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .browser-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 20px;
+      }
+      .browser-sidebar {
+        padding: 20px;
+      }
+      .browser-sidebar p {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 13px 0;
+      }
+      .sandbox {
+        overflow: hidden;
+      }
+      .browser-chrome {
+        background: #edf1eb;
+        border-bottom: 1px solid var(--line);
+        padding: 11px 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .dot {
+        height: 7px;
+        width: 7px;
+        border-radius: 50%;
+        background: #c5cec2;
+      }
+      .address {
+        margin-left: 12px;
+        font-size: 11px;
+        background: #ffffffa0;
+        padding: 3px 12px;
+        border-radius: 5px;
+        flex: 1;
+        color: var(--muted);
+      }
+      .sandbox-content {
+        min-height: 340px;
+        padding: 32px;
+      }
+      .sandbox-eyebrow {
+        font-size: 10px;
+        color: var(--green);
+        letter-spacing: 1.5px;
+        margin-bottom: 9px;
+      }
+      .sandbox-content h2 {
+        font-size: 24px;
+      }
+      .sandbox-content p {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 9px 0 25px;
+      }
+      .candidate-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .candidate {
+        min-height: 55px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 2px;
+      }
+      .candidate small {
+        font-size: 10px;
+      }
+      .candidate.predicted {
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px var(--mint);
+        background: #f4fbf6;
+      }
+      .browser-result {
+        padding: 16px 21px;
+        border-top: 1px solid var(--line);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .spinner {
+        display: inline-block;
+        width: 11px;
+        height: 11px;
+        border: 2px solid #b8cec1;
+        border-top-color: var(--green);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-right: 5px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+      @media (max-width: 1080px) {
+        .workspace {
+          grid-template-columns: 210px 1fr;
+        }
+        .inspector {
+          grid-column: 1/-1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0 30px;
+        }
+        .inspector .panel-heading {
+          grid-column: 1/-1;
+        }
+        .inspector .divider {
+          display: none;
+        }
+        .inspector .trace {
+          grid-column: 2;
+          grid-row: 2/6;
+        }
+        .board-wrap {
+          min-height: 360px;
+        }
+      }
+      @media (max-width: 680px) {
+        .shell {
+          padding: 20px 15px 30px;
+        }
+        .intro {
+          display: block;
+        }
+        .intro .tag {
+          display: inline-block;
+          margin-top: 13px;
+        }
+        .metrics {
+          gap: 7px;
+        }
+        .metric {
+          padding: 12px 10px;
+        }
+        .metric-head {
+          font-size: 10px;
+        }
+        .metric-head .tiny-tag {
+          display: none;
+        }
+        .metric-value {
+          font-size: 26px;
+        }
+        .metric-foot {
+          font-size: 10px;
+        }
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .controls {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0 12px;
+        }
+        .controls .panel-heading {
+          grid-column: 1/-1;
+        }
+        .controls .field {
+          margin-bottom: 12px;
+        }
+        .controls .divider,
+        .controls .manual-area {
+          display: none;
+        }
+        .controls .actions {
+          grid-column: 1/-1;
+        }
+        .controls .full {
+          grid-column: 1/-1;
+        }
+        .inspector {
+          grid-template-columns: 1fr;
+        }
+        .inspector .trace {
+          grid-column: auto;
+          grid-row: auto;
+          margin-top: 15px;
+        }
+        .board-wrap {
+          min-height: 300px;
+          padding: 23px;
+        }
+        .board {
+          width: min(100%, 320px);
+        }
+        .note {
+          grid-template-columns: 1fr;
+          gap: 13px;
+        }
+        .footer {
+          display: block;
+        }
+        .footer span {
+          display: block;
+          margin-top: 3px;
+        }
+        .browser-layout {
+          grid-template-columns: 1fr;
+        }
+        .sandbox-content {
+          padding: 22px;
+        }
+        .topline {
+          margin-bottom: 20px;
+        }
+        .brand {
+          font-size: 10px;
+        }
+        .status {
+          font-size: 10px;
+        }
+        .counters {
+          gap: 10px;
+        }
+      }
+      textarea {
+        font: inherit;
+        width: 100%;
+        min-height: 96px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 10px 11px;
+        color: var(--ink);
+        background: #fbfcf9;
+        line-height: 1.6;
+        margin: 7px 0 14px;
+      }
+      textarea:focus-visible {
+        outline: 3px solid #81b9a5;
+        outline-offset: 3px;
+      }
+      .effect-preview {
+        padding: 17px 19px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #f3f7ef;
+        margin: 13px 0;
+        font-size: 14px;
+        color: var(--ink);
+      }
+      .effect-preview.dark {
+        background: #213630;
+        border-color: #3d594d;
+        color: #e7f4ea;
+      }
+      .effect-preview strong {
+        font-size: 17px;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .effect-preview .effect-line {
+        margin-top: 7px;
+        font-size: 12px;
+      }
+      .effect-preview .effect-line.dim {
+        opacity: 0.45;
+      }
+      .effect-preview small {
+        color: inherit;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="topline">
+        <div class="brand">
+          <span class="brandmark">j</span> JEV / DECISION LAB
+        </div>
+        <div class="status" id="connection">
+          <i></i><span>正在连接本地模型</span>
+        </div>
+      </div>
+      <header class="intro">
+        <div>
+          <h1>让模型选择下一步。</h1>
+          <p>
+            同一张地图，比较训练前后的决策。每一步读取当前状态，实时给候选动作打分，再让环境执行。
+          </p>
+        </div>
+        <span class="tag">从分类头到可执行决策 · 入门实战</span>
+      </header>
+      <div class="notice" id="notice" hidden role="alert"></div>
+      <nav class="tabs" role="tablist" aria-label="实验场景">
+        <button
+          class="tab"
+          id="game-tab"
+          role="tab"
+          aria-selected="true"
+          aria-controls="game-view"
+        >
+          01 · 推箱子</button
+        ><button
+          class="tab"
+          id="browser-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="browser-view"
+          hidden
+        >
+          02 · 浏览器按钮选择
+        </button>
+      </nav>
+      <section id="game-view" role="tabpanel" aria-labelledby="game-tab">
+        <div class="metrics" aria-label="独立关卡评测结果">
+          <div class="metric">
+            <div class="metric-head">
+              <span>训练前 · 关卡成功率</span
+              ><span class="tiny-tag">BASELINE</span>
+            </div>
+            <div class="metric-value" id="before-value">—</div>
+            <div class="metric-foot" id="before-detail">等待真实评测结果</div>
+          </div>
+          <div class="metric emphasis">
+            <div class="metric-head">
+              <span>训练后 · 关卡成功率</span
+              ><span class="tiny-tag">TRAINED</span>
+            </div>
+            <div class="metric-value" id="after-value">—</div>
+            <div class="metric-foot" id="after-detail">等待真实评测结果</div>
+          </div>
+          <div class="metric">
+            <div class="metric-head">
+              <span>随机合法动作 · 成功率</span
+              ><span class="tiny-tag">CONTROL</span>
+            </div>
+            <div class="metric-value" id="random-value">—</div>
+            <div class="metric-foot" id="random-detail">等待真实评测结果</div>
+          </div>
+        </div>
+        <div class="workspace">
+          <aside class="panel controls">
+            <div class="panel-heading">
+              <h2>设置实验</h2>
+              <span class="stepno">01</span>
+            </div>
+            <div class="field">
+              <label for="level-select">测试关卡</label
+              ><select id="level-select" disabled>
+                <option>正在读取关卡…</option>
+              </select>
+              <div class="level-note" id="level-note">
+                地图按关卡划分训练与测试。
+              </div>
+            </div>
+            <div class="field">
+              <label for="policy-select">决策策略</label
+              ><select id="policy-select">
+                <option value="after">训练后</option>
+                <option value="before">训练前</option>
+                <option value="random">随机合法动作</option>
+              </select>
+              <div class="level-note">切换策略会重置当前关卡。</div>
+            </div>
+            <div class="actions">
+              <button id="step-button" class="primary" disabled>
+                模型走一步</button
+              ><button id="auto-button" disabled>自动运行</button>
+            </div>
+            <button id="reset-button" class="full" disabled>重置关卡</button>
+            <div class="divider"></div>
+            <div class="manual-area">
+              <h3>也可以自己试试</h3>
+              <div class="manual" aria-label="手动移动">
+                <button data-move="up" aria-label="向上">↑</button
+                ><button data-move="left" aria-label="向左">←</button
+                ><button data-move="down" aria-label="向下">↓</button
+                ><button data-move="right" aria-label="向右">→</button>
+              </div>
+              <p class="keyhint">
+                方向键 / <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>
+              </p>
+            </div>
+          </aside>
+          <section class="panel game-panel" aria-label="推箱子游戏">
+            <div class="game-top">
+              <h2 id="board-title">测试关卡</h2>
+              <span class="split-badge" id="split-badge">等待载入</span>
+            </div>
+            <div class="board-wrap">
+              <div
+                id="board"
+                class="board"
+                role="img"
+                aria-label="正在加载地图"
+              >
+                <div class="placeholder">
+                  本地服务启动后，这里会显示真实测试关卡。
+                </div>
+              </div>
+            </div>
+            <div class="legend">
+              <span class="legend-item"><i class="swatch person"></i>玩家</span
+              ><span class="legend-item"><i class="swatch"></i>箱子</span
+              ><span class="legend-item"
+                ><i class="swatch target"></i>目标</span
+              >
+            </div>
+            <div class="game-footer">
+              <div class="result" id="game-result" aria-live="polite">
+                等待开始
+              </div>
+              <div class="counters">
+                <span>步数 <b id="step-count">0</b></span
+                ><span>就位 <b id="goal-count">0 / 0</b></span>
+              </div>
+            </div>
+          </section>
+          <aside class="panel inspector">
+            <div class="panel-heading">
+              <h2>候选动作读出</h2>
+              <span class="stepno">02</span>
+            </div>
+            <div id="probabilities"></div>
+            <div class="latency">
+              <span id="latency-label">服务返回耗时</span
+              ><b id="latency-value">—</b>
+            </div>
+            <p class="model-note" id="model-note">
+              运行模型后，显示本次候选分数。softmax
+              概率表示候选间的相对偏好，并非保证正确。
+            </p>
+            <div class="divider"></div>
+            <div class="trace">
+              <h3 style="margin-bottom: 9px">本局轨迹</h3>
+              <div id="log" class="log" aria-live="polite">
+                <span>每一步都会记录在这里。</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="note">
+          <div>
+            <h3>这里的“决策”怎样发生？</h3>
+            <div class="flow">当前状态 → 候选打分 → 选择动作 → 新状态</div>
+            <p id="architecture-note">
+              推箱子使用从零训练的小型棋盘编码器；浏览器任务使用冻结的 Qwen 0.8B
+              与决策头。两者演示同一种有限候选决策思路，模型结构不同。游戏推理不调用求解器。
+            </p>
+          </div>
+          <div>
+            <h3>看完整关卡，不只看单步准确率</h3>
+            <p id="evaluation-note">
+              顶部展示保存的离线评测结果，当前棋盘则是实时交互。训练前后策略在状态首次重复时停止；随机策略可运行到
+              96 步上限。人工接管会清除循环记录，本局不再算模型独立通关。
+            </p>
+          </div>
+        </div>
+      </section>
+      <section
+        id="browser-view"
+        role="tabpanel"
+        aria-labelledby="browser-tab"
+        hidden
+      >
+        <div class="metrics" aria-label="浏览器按钮选择测试结果">
+          <div class="metric">
+            <div class="metric-head">
+              <span>训练前 · 按钮选择准确率</span
+              ><span class="tiny-tag">RANDOM HEAD</span>
+            </div>
+            <div class="metric-value" id="browser-before-value">—</div>
+            <div class="metric-foot" id="browser-before-detail">
+              等待真实评测结果
+            </div>
+          </div>
+          <div class="metric emphasis">
+            <div class="metric-head">
+              <span>训练后 · 按钮选择准确率</span
+              ><span class="tiny-tag">TRAINED HEAD</span>
+            </div>
+            <div class="metric-value" id="browser-after-value">—</div>
+            <div class="metric-foot" id="browser-after-detail">
+              等待真实评测结果
+            </div>
+          </div>
+          <div class="metric">
+            <div class="metric-head">
+              <span>词面匹配 · 按钮选择准确率</span
+              ><span class="tiny-tag">CONTROL</span>
+            </div>
+            <div class="metric-value" id="browser-lexical-value">—</div>
+            <div class="metric-foot" id="browser-lexical-detail">
+              等待真实评测结果
+            </div>
+          </div>
+        </div>
+        <div class="browser-layout">
+          <aside class="panel browser-sidebar">
+            <div class="panel-heading">
+              <h2>页面动作选择</h2>
+              <span class="stepno">03</span>
+            </div>
+            <label for="browser-case" class="muted">测试任务</label
+            ><select id="browser-case" style="margin: 7px 0 14px"></select
+            ><label for="browser-task" class="muted"
+              >任务指令 · 可以自己改写</label
+            ><textarea
+              id="browser-task"
+              aria-label="任务指令"
+              maxlength="1000"
+              placeholder="例如：不要归档，打开这份文档。"
+            ></textarea
+            ><label for="browser-policy" class="muted">决策策略</label
+            ><select id="browser-policy" style="margin: 7px 0 14px">
+              <option value="after">训练后</option>
+              <option value="before">训练前</option>
+              <option value="lexical">词面匹配基线</option></select
+            ><button class="primary full" id="browser-run">
+              让模型选择按钮</button
+            ><button class="full" id="browser-reset">重置页面状态</button>
+            <p id="browser-model-note">
+              冻结 Qwen 0.8B +
+              决策头。模型读取任务、页面文字与候选按钮，单次前向选择下一步。
+            </p>
+            <p>
+              首次请求可能需要加载模型，请稍候。改写指令后不显示原数据集的正确性标签。
+            </p>
+            <p>
+              合成的本地页面沙盒：按钮会更新下方页面状态，不代表已经能够操作任意真实网站。
+            </p>
+          </aside>
+          <div class="panel sandbox">
+            <div class="browser-chrome">
+              <i class="dot"></i><i class="dot"></i><i class="dot"></i
+              ><span class="address">local-sandbox / decision-demo</span>
+            </div>
+            <div class="sandbox-content">
+              <div class="sandbox-eyebrow">LOCAL INTERACTIVE SANDBOX</div>
+              <h2 id="sandbox-title">选择合适的下一步</h2>
+              <p id="sandbox-description">
+                模型将根据任务与当前页面候选选择动作。
+              </p>
+              <div class="candidate-list" id="browser-candidates"></div>
+              <div class="divider"></div>
+              <h3>页面当前状态</h3>
+              <div
+                id="sandbox-state"
+                class="model-note"
+                style="margin-top: 9px"
+              ></div>
+            </div>
+            <div class="browser-result" id="browser-result" aria-live="polite">
+              尚未运行。候选顺序与任务内容来自本地服务。
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <span id="model-footer">Jev-style 教学实现 · 结果由本地服务提供</span
+        ><span>不生成长答案，每次只做一个可验证的选择。</span>
+      </footer>
+    </main>
+    <script>
+      "use strict";
+      const $ = (id) => document.getElementById(id);
+      const ACTIONS = ["up", "down", "left", "right"];
+      const LABELS = {
+        up: "↑ 向上",
+        down: "↓ 向下",
+        left: "← 向左",
+        right: "→ 向右",
+      };
+      const DELTAS = {
+        up: [0, -1],
+        down: [0, 1],
+        left: [-1, 0],
+        right: [1, 0],
+      };
+      let levels = [],
+        level = null,
+        player = [],
+        boxes = [],
+        steps = 0,
+        auto = false,
+        pending = false,
+        generation = 0,
+        activeRequest = null,
+        maxSteps = 96,
+        manualUsed = false,
+        browserCases = [],
+        browserGeneration = 0,
+        modelLabels = {},
+        stateVisits = new Map(),
+        haltReason = "";
+      const key = (p) => p.join(",");
+      const clone = (value) => JSON.parse(JSON.stringify(value));
+      function notice(message) {
+        $("notice").textContent = message;
+        $("notice").hidden = !message;
+      }
+      async function api(path, body, signal) {
+        const response = await fetch(path, {
+          method: body ? "POST" : "GET",
+          headers: body ? { "Content-Type": "application/json" } : {},
+          body: body ? JSON.stringify(body) : undefined,
+          signal,
+        });
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error(
+            `服务未返回 JSON（HTTP ${response.status}）。请通过 Python 服务打开本页。`,
+          );
+        }
+        if (!response.ok)
+          throw new Error(
+            data.error || data.detail || `请求失败：HTTP ${response.status}`,
+          );
+        return data;
+      }
+      function dimensions(item) {
+        const s = item.size;
+        if (Array.isArray(s)) return s;
+        if (s && typeof s === "object") return [s.width, s.height];
+        if (typeof s === "number") return [s, s];
+        return [item.width || 7, item.height || 7];
+      }
+      function solved() {
+        return (
+          !!level &&
+          boxes.length > 0 &&
+          boxes.every((box) =>
+            level.goals.some((goal) => key(goal) === key(box)),
+          )
+        );
+      }
+      function controls() {
+        const end = !level || solved() || steps >= maxSteps;
+        $("step-button").disabled = pending || auto || end || !!haltReason;
+        $("auto-button").disabled = (pending && !auto) || end || !!haltReason;
+        $("reset-button").disabled = !level;
+        $("auto-button").textContent = auto ? "停止运行" : "自动运行";
+        $("step-button").textContent = pending ? "正在判断…" : "模型走一步";
+        document
+          .querySelectorAll("[data-move]")
+          .forEach((button) => (button.disabled = pending || auto || end));
+      }
+      function log(message) {
+        const list = $("log");
+        if (
+          steps === 0 &&
+          list.children.length === 1 &&
+          list.firstElementChild.tagName === "SPAN"
+        )
+          list.replaceChildren();
+        const row = document.createElement("div");
+        row.className = "log-entry";
+        const n = document.createElement("span");
+        n.textContent = String(steps).padStart(2, "0");
+        const t = document.createElement("span");
+        t.textContent = message;
+        row.append(n, t);
+        list.prepend(row);
+        while (list.children.length > 60) list.lastElementChild.remove();
+      }
+      function render() {
+        if (!level) return;
+        const [w, h] = dimensions(level),
+          walls = new Set(level.walls.map(key)),
+          goals = new Set(level.goals.map(key)),
+          boxset = new Set(boxes.map(key));
+        const board = $("board");
+        board.replaceChildren();
+        board.style.gridTemplateColumns = `repeat(${w},1fr)`;
+        board.style.gridTemplateRows = `repeat(${h},1fr)`;
+        board.style.setProperty("--aspect", `${w}/${h}`);
+        let placed = 0;
+        for (let y = 0; y < h; y++)
+          for (let x = 0; x < w; x++) {
+            const k = `${x},${y}`,
+              cell = document.createElement("div");
+            cell.className =
+              "cell" +
+              (walls.has(k) ? " wall" : "") +
+              (goals.has(k) ? " goal" : "");
+            if (boxset.has(k)) {
+              const box = document.createElement("span");
+              box.className = "box" + (goals.has(k) ? " on-goal" : "");
+              box.textContent = goals.has(k) ? "✓" : "×";
+              cell.append(box);
+              if (goals.has(k)) placed++;
+            }
+            if (key(player) === k) {
+              const person = document.createElement("span");
+              person.className = "player";
+              person.textContent = "•";
+              cell.append(person);
+            }
+            board.append(cell);
+          }
+        board.setAttribute(
+          "aria-label",
+          `${w} 列 ${h} 行的推箱子地图，玩家位于第 ${player[0] + 1} 列第 ${player[1] + 1} 行，${placed} 个箱子已就位`,
+        );
+        $("step-count").textContent = steps;
+        $("goal-count").textContent = `${placed} / ${boxes.length}`;
+        const result = $("game-result");
+        result.className = "result";
+        if (solved()) {
+          result.textContent = manualUsed ? "已通关 · 含人工操作" : "已通关";
+          result.classList.add("win");
+          stopAuto();
+        } else if (steps >= maxSteps) {
+          result.textContent = `达到 ${maxSteps} 步上限`;
+          result.classList.add("fail");
+          stopAuto();
+        } else if (haltReason) {
+          result.textContent = haltReason;
+          result.classList.add("fail");
+        } else
+          result.textContent = manualUsed
+            ? "进行中 · 含人工操作"
+            : auto
+              ? "模型运行中"
+              : steps
+                ? "进行中"
+                : "准备就绪";
+        controls();
+      }
+      function probabilities(values, chosen) {
+        const root = $("probabilities");
+        root.replaceChildren();
+        let data = values || {};
+        if (Array.isArray(data))
+          data = Object.fromEntries(
+            ACTIONS.map((action, i) => [action, data[i]]),
+          );
+        for (const action of ACTIONS) {
+          const row = document.createElement("div");
+          row.className = "prob-row" + (action === chosen ? " selected" : "");
+          const meta = document.createElement("div");
+          meta.className = "prob-meta";
+          const name = document.createElement("span");
+          name.textContent = LABELS[action];
+          const percent = document.createElement("span");
+          const p = Number(data[action]);
+          const valid = data[action] != null && Number.isFinite(p);
+          percent.textContent = valid ? `${(p * 100).toFixed(1)}%` : "—";
+          meta.append(name, percent);
+          const track = document.createElement("div");
+          track.className = "prob-track";
+          const fill = document.createElement("div");
+          fill.className = "prob-fill";
+          fill.style.width = valid
+            ? `${Math.max(0, Math.min(1, p)) * 100}%`
+            : "0%";
+          track.append(fill);
+          row.append(meta, track);
+          root.append(row);
+        }
+      }
+      function stopAuto() {
+        auto = false;
+        controls();
+      }
+      function positionKey() {
+        return key(player) + "|" + boxes.map(key).sort().join(";");
+      }
+      function reset() {
+        generation++;
+        if (activeRequest) activeRequest.abort();
+        activeRequest = null;
+        pending = false;
+        auto = false;
+        steps = 0;
+        manualUsed = false;
+        haltReason = "";
+        stateVisits = new Map();
+        if (!level) return;
+        player = clone(level.player);
+        boxes = clone(level.boxes);
+        stateVisits.set(positionKey(), 1);
+        $("log").replaceChildren();
+        log("初始状态 · " + $("policy-select").selectedOptions[0].textContent);
+        $("latency-value").textContent = "—";
+        probabilities();
+        render();
+      }
+      function chooseLevel() {
+        level =
+          levels.find((item) => String(item.id) === $("level-select").value) ||
+          levels[0];
+        if (!level) return;
+        $("board-title").textContent = level.name || `关卡 ${level.id}`;
+        $("split-badge").textContent =
+          level.split === "train"
+            ? "训练关卡"
+            : level.split === "dev"
+              ? "验证关卡"
+              : level.split === "test"
+                ? "测试关卡"
+                : level.split || "未标注划分";
+        const [w, h] = dimensions(level);
+        $("level-note").textContent =
+          `${w} × ${h} 地图 · ${level.boxes.length} 个箱子 · 上限 ${maxSteps} 步`;
+        reset();
+      }
+      function move(action, manual = false) {
+        if (!level || solved() || steps >= maxSteps) return false;
+        const delta = DELTAS[action];
+        if (!delta) throw new Error("服务返回了未知动作：" + action);
+        haltReason = "";
+        if (manual) {
+          manualUsed = true;
+          stateVisits = new Map();
+        }
+        const [w, h] = dimensions(level),
+          wallset = new Set(level.walls.map(key));
+        const blocked = (p) =>
+          p[0] < 0 || p[1] < 0 || p[0] >= w || p[1] >= h || wallset.has(key(p));
+        const next = [player[0] + delta[0], player[1] + delta[1]];
+        let valid = !blocked(next),
+          pushed = false;
+        if (valid) {
+          const index = boxes.findIndex((box) => key(box) === key(next));
+          if (index >= 0) {
+            const target = [next[0] + delta[0], next[1] + delta[1]];
+            valid =
+              !blocked(target) &&
+              !boxes.some((box) => key(box) === key(target));
+            if (valid) {
+              boxes[index] = target;
+              pushed = true;
+            }
+          }
+        }
+        if (valid) player = next;
+        steps++;
+        log(
+          `${manual ? "手动" : "模型"} ${LABELS[action]}${valid ? (pushed ? " · 推动箱子" : "") : " · 碰撞 / 无效动作"}`,
+        );
+        const state = positionKey();
+        stateVisits.set(state, (stateVisits.get(state) || 0) + 1);
+        if (
+          !manual &&
+          $("policy-select").value !== "random" &&
+          stateVisits.get(state) >= 2 &&
+          !solved()
+        ) {
+          haltReason = "状态首次重复 · 策略进入循环";
+          log(haltReason);
+          stopAuto();
+        }
+        render();
+        return valid;
+      }
+      async function modelStep() {
+        if (pending || !level || solved() || steps >= maxSteps || haltReason)
+          return;
+        const token = generation;
+        pending = true;
+        activeRequest = new AbortController();
+        controls();
+        try {
+          const start = performance.now();
+          const result = await api(
+            "/api/step",
+            {
+              level_id: level.id,
+              player: clone(player),
+              boxes: clone(boxes),
+              policy: $("policy-select").value,
+            },
+            activeRequest.signal,
+          );
+          if (token !== generation) return;
+          const elapsed = performance.now() - start;
+          const action = result.action;
+          probabilities(result.probabilities || result.probs, action);
+          const serverTime = result.latency_ms ?? result.elapsed_ms;
+          $("latency-label").textContent =
+            serverTime != null ? "服务返回耗时" : "请求往返耗时";
+          $("latency-value").textContent =
+            `${Number(serverTime ?? elapsed).toFixed(1)} ms`;
+          if (result.note) $("model-note").textContent = result.note;
+          move(action);
+          notice("");
+        } catch (error) {
+          if (error.name !== "AbortError" && token === generation) {
+            notice(error.message);
+            stopAuto();
+            log("请求失败，已停止");
+          }
+        } finally {
+          if (token === generation) {
+            pending = false;
+            activeRequest = null;
+            controls();
+          }
+        }
+      }
+      async function autoRun() {
+        if (auto) {
+          stopAuto();
+          return;
+        }
+        auto = true;
+        const token = generation;
+        controls();
+        while (auto && token === generation && !solved() && steps < maxSteps) {
+          await modelStep();
+          if (auto) await new Promise((resolve) => setTimeout(resolve, 180));
+        }
+        if (token === generation) {
+          stopAuto();
+          render();
+        }
+      }
+      function metricValue(value) {
+        if (!value) return null;
+        const solvedCount =
+          value.solved ?? value.successes ?? value.solved_count;
+        const total = value.total ?? value.levels ?? value.n_levels;
+        const rate =
+          value.solve_rate ??
+          value.success_rate ??
+          (Number.isFinite(solvedCount) && total ? solvedCount / total : null);
+        return { solved: solvedCount, total, rate };
+      }
+      function showInfo(info) {
+        modelLabels = { game: info.model, browser: info.browser_model };
+        const metrics = info.metrics || info.evaluation || {};
+        for (const policy of ["before", "after", "random"]) {
+          const m = metricValue(
+            metrics[policy] ||
+              (policy === "before"
+                ? metrics.untrained
+                : policy === "after"
+                  ? metrics.trained
+                  : null),
+          );
+          if (!m || m.rate == null) continue;
+          $(`${policy}-value`).textContent =
+            `${(Number(m.rate) * 100).toFixed(1)}%`;
+          $(`${policy}-detail`).textContent =
+            m.solved != null && m.total != null
+              ? `${m.solved} / ${m.total} 起点通关 · ${metrics.split || "留出布局"}`
+              : "来自服务保存的离线评测";
+        }
+        for (const policy of ["before", "after", "lexical"]) {
+          const metric = info.browser_metrics?.[policy];
+          if (
+            !metric ||
+            !Number.isFinite(metric.correct) ||
+            !Number.isFinite(metric.total) ||
+            metric.total <= 0
+          )
+            continue;
+          $(`browser-${policy}-value`).textContent =
+            `${((metric.correct / metric.total) * 100).toFixed(1)}%`;
+          $(`browser-${policy}-detail`).textContent =
+            `${metric.correct} / ${metric.total} 项正确 · 留出模板测试集`;
+        }
+        maxSteps = Number(info.max_steps || info.step_limit || 96);
+        if (info.model)
+          $("model-footer").textContent = `${info.model} · Jev-style 教学实现`;
+        if (info.architecture_note)
+          $("architecture-note").textContent = info.architecture_note;
+        if (info.evaluation_note)
+          $("evaluation-note").textContent = info.evaluation_note;
+        if (info.model_note) $("model-note").textContent = info.model_note;
+        if (info.browser_model_note)
+          $("browser-model-note").textContent = info.browser_model_note;
+        else if (info.browser_model)
+          $("browser-model-note").textContent =
+            `${info.browser_model} · 冻结底座与可训练候选决策头。`;
+        $("connection").className = "status ready";
+        $("connection").lastElementChild.textContent =
+          info.ready === false ? "服务已连接 · 模型未就绪" : "本地服务已连接";
+        if (info.ready === false)
+          notice(
+            info.message ||
+              "服务已启动，但模型尚未就绪。可以手动体验地图；模型请求可能不可用。",
+          );
+        if (info.browser_available) {
+          $("browser-tab").hidden = false;
+          loadBrowserCases();
+        }
+      }
+      function tab(name) {
+        const browser = name === "browser";
+        $("game-view").hidden = browser;
+        $("browser-view").hidden = !browser;
+        $("game-tab").setAttribute("aria-selected", String(!browser));
+        $("browser-tab").setAttribute("aria-selected", String(browser));
+        if (modelLabels[name])
+          $("model-footer").textContent =
+            `${modelLabels[name]} · Jev-style 教学实现`;
+        if (browser) stopAuto();
+      }
+      async function loadBrowserCases() {
+        try {
+          const data = await api("/api/browser-cases");
+          browserCases = Array.isArray(data) ? data : data.cases || [];
+          $("browser-case").replaceChildren();
+          for (const item of browserCases) {
+            const option = document.createElement("option");
+            option.value = item.id;
+            option.textContent =
+              item.name || `${item.ui?.title || "任务"} · ${item.id}`;
+            $("browser-case").append(option);
+          }
+          renderBrowser();
+        } catch (error) {
+          $("browser-result").textContent = error.message;
+        }
+      }
+      function currentBrowserCase() {
+        return (
+          browserCases.find(
+            (item) => String(item.id) === $("browser-case").value,
+          ) || browserCases[0]
+        );
+      }
+      function browserUI(item) {
+        return item.ui || item;
+      }
+      function browserButtons(item) {
+        const ui = browserUI(item);
+        return ui.buttons || item.candidates || [];
+      }
+      function renderBrowserState(state) {
+        const names = {
+          view: "当前视图",
+          opened: "打开的文档",
+          archived: "已归档",
+          dialog_open: "确认框打开",
+          deleted: "已删除",
+          theme: "主题",
+          saved: "已保存",
+          published: "已发布",
+          notifications: "通知",
+          enabled: "开启状态",
+          filter: "筛选条件",
+          draft: "草稿",
+          muted: "已静音",
+        };
+        const values = {
+          files: "文件列表",
+          confirmation: "操作确认",
+          list: "列表",
+          details: "详情",
+          editor: "编辑器",
+          preview: "预览",
+          dark: "深色",
+          light: "浅色",
+          system: "跟随系统",
+          unset: "尚未设置",
+          all: "全部消息",
+          mentions: "仅提及",
+          off: "关闭",
+        };
+        const panel = $("sandbox-state");
+        panel.replaceChildren();
+        const item = currentBrowserCase(),
+          ui = item ? browserUI(item) : {};
+        if (state && item) {
+          const preview = document.createElement("div");
+          preview.className =
+            "effect-preview" + (state.theme === "dark" ? " dark" : "");
+          const title = document.createElement("strong");
+          const description = document.createElement("small");
+          if (ui.workflow === "theme") {
+            title.textContent =
+              state.theme === "dark"
+                ? "深色外观"
+                : state.theme === "light"
+                  ? "浅色外观"
+                  : state.theme === "system"
+                    ? "跟随系统外观"
+                    : "请选择页面外观";
+            description.textContent = "此卡片会随选择即时改变。";
+          } else if (ui.workflow === "files") {
+            title.textContent = state.opened
+              ? `已打开：《${state.opened}》`
+              : state.archived?.length
+                ? "已移入归档"
+                : "本地文件列表";
+            description.textContent = state.archived?.length
+              ? state.archived.map((name) => `《${name}》`).join("、")
+              : "点击打开或归档后，文件状态会在这里更新。";
+          } else if (ui.workflow === "notes") {
+            title.textContent = state.published
+              ? "已出现在本地演示栏"
+              : state.view === "preview"
+                ? "正在预览内容"
+                : state.saved
+                  ? "草稿已保存"
+                  : "编辑中的笔记";
+            description.textContent = state.published
+              ? "只发布到本地模拟页面。"
+              : state.saved
+                ? "本次修改已保存到模拟草稿状态。"
+                : "尚未发布到演示栏。";
+          } else if (ui.workflow === "notifications") {
+            title.textContent =
+              state.notifications === "all"
+                ? "每条消息都会提醒"
+                : state.notifications === "mentions"
+                  ? "只在有人提到你时提醒"
+                  : state.notifications === "off"
+                    ? "所有消息保持静默"
+                    : "通知级别尚未选择";
+            description.textContent = "本地通知设置的实际模拟状态。";
+          } else if (ui.workflow === "confirmation") {
+            title.textContent = state.deleted
+              ? "测试文件已从列表移除"
+              : state.view === "details"
+                ? "正在查看文件详情"
+                : state.dialog_open
+                  ? "等待删除确认"
+                  : "已退出确认框，文件保留";
+            description.textContent = "这里只操作内存中的合成测试文件。";
+          } else if (ui.workflow === "filter") {
+            title.textContent =
+              state.filter === "unset"
+                ? "尚未选择筛选范围"
+                : state.filter == null
+                  ? "显示完整文件列表"
+                  : `只显示：${state.filter}`;
+            const tags = browserButtons(item)
+              .map((button) => button.effect?.filter)
+              .filter(
+                (value) => typeof value === "string" && value !== "unset",
+              );
+            for (const tag of [...new Set(tags)]) {
+              const line = document.createElement("div");
+              line.className = "effect-line";
+              line.textContent = `${tag} · 示例条目`;
+              if (
+                state.filter !== "unset" &&
+                state.filter != null &&
+                state.filter !== tag
+              )
+                line.hidden = true;
+              preview.append(line);
+            }
+            description.textContent = "条目按当前标签范围显示。";
+          } else title.textContent = "本地页面状态已载入";
+          preview.prepend(description);
+          preview.prepend(title);
+          panel.append(preview);
+        }
+        for (const [name, value] of Object.entries(state || {})) {
+          const row = document.createElement("div");
+          const text =
+            value === true
+              ? "是"
+              : value === false
+                ? "否"
+                : value == null
+                  ? "无"
+                  : Array.isArray(value)
+                    ? value.join("、") || "无"
+                    : typeof value === "object"
+                      ? JSON.stringify(value)
+                      : values[value] || String(value);
+          row.textContent = `${names[name] || name}：${text}`;
+          panel.append(row);
+        }
+        if (!panel.children.length)
+          panel.textContent = "当前页面尚无状态字段。";
+      }
+      function applyBrowserChoice(item, id, outcome) {
+        const candidate = browserButtons(item).find(
+          (button) => String(button.id) === String(id),
+        );
+        if (!candidate)
+          throw new Error(`服务返回未知按钮 ${id}，未执行任何页面动作。`);
+        const ui = browserUI(item);
+        const state =
+          outcome && typeof outcome === "object"
+            ? outcome.state || outcome
+            : Object.assign(
+                clone(ui.initial_state || {}),
+                clone(candidate.effect || {}),
+              );
+        renderBrowserState(state);
+        return candidate;
+      }
+      function renderBrowser(preserveTask = false) {
+        browserGeneration++;
+        const item = currentBrowserCase();
+        if (!item) return;
+        const ui = browserUI(item);
+        if (preserveTask !== true)
+          $("browser-task").value =
+            ui.task || item.instruction || item.question || "";
+        $("sandbox-title").textContent =
+          ui.title || item.page_title || "选择合适的下一步";
+        $("sandbox-description").textContent =
+          ui.page_text ||
+          item.page_description ||
+          "请根据左侧任务，从以下按钮中选择。";
+        $("browser-candidates").replaceChildren();
+        for (const candidate of browserButtons(item)) {
+          const button = document.createElement("button");
+          button.className = "candidate";
+          button.dataset.id = String(candidate.id);
+          const label = document.createElement("span");
+          label.textContent = candidate.label || candidate.text || candidate.id;
+          button.append(label);
+          if (candidate.detail) {
+            const detail = document.createElement("small");
+            detail.textContent = candidate.detail;
+            button.append(detail);
+          }
+          button.disabled = candidate.enabled === false;
+          button.addEventListener("click", () => {
+            browserGeneration++;
+            applyBrowserChoice(item, candidate.id);
+            $("browser-result").textContent =
+              `人工点击了「${label.textContent}」，本地页面状态已更新。`;
+          });
+          $("browser-candidates").append(button);
+        }
+        renderBrowserState(ui.initial_state);
+        $("browser-result").textContent =
+          "尚未运行。每次选择均从该任务的初始页面状态执行。";
+      }
+      async function browserPredict() {
+        const item = currentBrowserCase();
+        if (!item) return;
+        const caseId = item.id,
+          requestGeneration = browserGeneration,
+          policy = $("browser-policy").value,
+          task = $("browser-task").value.trim();
+        if (!task) {
+          $("browser-result").textContent = "请输入任务指令。";
+          $("browser-task").focus();
+          return;
+        }
+        $("browser-run").disabled = true;
+        $("browser-run").textContent = "正在判断…";
+        $("browser-result").textContent =
+          policy === "lexical"
+            ? "正在进行词面匹配…"
+            : "正在调用模型；首次请求可能包含加载时间…";
+        try {
+          const result = await api("/api/browser-predict", {
+            case_id: caseId,
+            policy,
+            task,
+          });
+          if (
+            requestGeneration !== browserGeneration ||
+            currentBrowserCase()?.id !== caseId ||
+            $("browser-policy").value !== policy ||
+            $("browser-task").value.trim() !== task
+          )
+            return;
+          const chosen = String(
+            result.candidate_id ?? result.action ?? result.choice,
+          );
+          const candidate = applyBrowserChoice(item, chosen, result.outcome);
+          for (const button of $("browser-candidates").children) {
+            button.classList.toggle("predicted", button.dataset.id === chosen);
+            const old = button.querySelector("[data-prob]");
+            if (old) old.remove();
+            const p = result.probabilities?.[button.dataset.id];
+            if (p != null && Number.isFinite(Number(p))) {
+              const score = document.createElement("small");
+              score.dataset.prob = "true";
+              score.textContent = `相对概率 ${(Number(p) * 100).toFixed(1)}%`;
+              button.append(score);
+            }
+          }
+          const unchanged =
+            task ===
+            (
+              browserUI(item).task ||
+              item.instruction ||
+              item.question ||
+              ""
+            ).trim();
+          const judgment = !unchanged
+            ? " · 自定义指令"
+            : result.correct === true
+              ? " · 选择正确"
+              : result.correct === false
+                ? " · 选择错误"
+                : "";
+          const time =
+            result.latency_ms != null
+              ? ` · ${result.includes_model_loading ? "首次加载＋本次推理" : "本次服务处理"} ${Number(result.latency_ms).toFixed(1)} ms`
+              : "";
+          $("browser-result").textContent =
+            `${policy === "lexical" ? "词面基线" : "模型"}选择「${candidate.label || chosen}」${judgment}${time}。${result.note || "本地页面状态已按该按钮更新。"}`;
+        } catch (error) {
+          if (requestGeneration === browserGeneration)
+            $("browser-result").textContent = error.message;
+        } finally {
+          $("browser-run").disabled = false;
+          $("browser-run").textContent = "让模型选择按钮";
+        }
+      }
+      $("level-select").addEventListener("change", chooseLevel);
+      $("policy-select").addEventListener("change", reset);
+      $("step-button").addEventListener("click", modelStep);
+      $("auto-button").addEventListener("click", autoRun);
+      $("reset-button").addEventListener("click", reset);
+      $("game-tab").addEventListener("click", () => tab("game"));
+      $("browser-tab").addEventListener("click", () => tab("browser"));
+      $("browser-case").addEventListener("change", renderBrowser);
+      $("browser-policy").addEventListener("change", () => renderBrowser(true));
+      $("browser-reset").addEventListener("click", renderBrowser);
+      $("browser-run").addEventListener("click", browserPredict);
+      document
+        .querySelectorAll("[data-move]")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            move(button.dataset.move, true),
+          ),
+        );
+      document.addEventListener("keydown", (event) => {
+        if (
+          $("game-view").hidden ||
+          event.ctrlKey ||
+          event.altKey ||
+          event.metaKey ||
+          /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)
+        )
+          return;
+        const action = {
+          ArrowUp: "up",
+          ArrowDown: "down",
+          ArrowLeft: "left",
+          ArrowRight: "right",
+          w: "up",
+          s: "down",
+          a: "left",
+          d: "right",
+        }[event.key];
+        if (action && level && !pending && !auto) {
+          event.preventDefault();
+          move(action, true);
+        }
+      });
+      probabilities();
+      (async () => {
+        const responses = await Promise.allSettled([
+          api("/api/info"),
+          api("/api/levels"),
+        ]);
+        if (responses[0].status === "fulfilled") showInfo(responses[0].value);
+        else {
+          $("connection").className = "status error";
+          $("connection").lastElementChild.textContent = "无法连接本地服务";
+          notice(responses[0].reason.message);
+        }
+        if (responses[1].status === "fulfilled") {
+          const data = responses[1].value;
+          levels = Array.isArray(data) ? data : data.levels || [];
+          $("level-select").replaceChildren();
+          for (const item of levels) {
+            const option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.name || `关卡 ${item.id}`;
+            $("level-select").append(option);
+          }
+          $("level-select").disabled = !levels.length;
+          if (levels.length) chooseLevel();
+          else notice("服务未返回可用关卡。");
+        } else notice(responses[1].reason.message);
+        controls();
+      })();
+    </script>
+  </body>
+</html>

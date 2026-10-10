@@ -1,0 +1,72 @@
+{
+  "scope": "two examples only; batch size and candidate order changed together; cause of probability differences not isolated",
+  "device": "cuda",
+  "checks": [
+    {
+      "id": "test-07",
+      "reload_choice_equal": true,
+      "reload_probability_max_error": 0.0,
+      "new_batch_choice_equal": true,
+      "new_batch_probability_max_error": 0.12509924173355103
+    },
+    {
+      "id": "challenge-00",
+      "reload_choice_equal": true,
+      "reload_probability_max_error": 0.0,
+      "new_batch_choice_equal": true,
+      "new_batch_probability_max_error": 0.043887197971343994
+    }
+  ],
+  "predictions": [
+    {
+      "id": "test-07",
+      "state": "解除暂停，往后执行",
+      "target": "continue",
+      "choice": "cancel",
+      "probabilities": {
+        "pause": 0.06727037578821182,
+        "cancel": 0.894622802734375,
+        "continue": 0.03611043468117714,
+        "other": 0.0019962892401963472
+      }
+    },
+    {
+      "id": "challenge-00",
+      "state": "不要取消，只是暂停",
+      "target": "pause",
+      "choice": "pause",
+      "probabilities": {
+        "pause": 0.9109000563621521,
+        "cancel": 0.0416724756360054,
+        "continue": 0.014371184632182121,
+        "other": 0.033056315034627914
+      }
+    }
+  ],
+  "reversed_batch1_predictions": [
+    {
+      "id": "test-07",
+      "state": "解除暂停，往后执行",
+      "target": "continue",
+      "choice": "cancel",
+      "probabilities": {
+        "other": 0.0028870883397758007,
+        "continue": 0.0378616526722908,
+        "cancel": 0.769523561000824,
+        "pause": 0.18972767889499664
+      }
+    },
+    {
+      "id": "challenge-00",
+      "state": "不要取消，只是暂停",
+      "target": "pause",
+      "choice": "pause",
+      "probabilities": {
+        "other": 0.02172744646668434,
+        "continue": 0.009194239042699337,
+        "cancel": 0.014291048981249332,
+        "pause": 0.9547872543334961
+      }
+    }
+  ]
+}

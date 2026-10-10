@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "dataset_sha256": "8bbc21f2cfbc481dc9669f6672b89b34976ada49b9be7e61dec7e174f725e785",
+  "levels_checked": 11455,
+  "canonical_layouts_checked": 332,
+  "exact_oracle_layouts_checked": 332,
+  "trajectories_replayed": 1216,
+  "environment_steps_replayed": 29646,
+  "split_layout_overlap": 0,
+  "report_and_checkpoint_dataset_hash_match": true,
+  "checks": [
+    "canonical split isolation",
+    "every initial state's exact shortest distance",
+    "all stored trajectory actions, termination and final states",
+    "all rollout aggregate counts, success rates and length metrics",
+    "dataset digest linked to report and before/after checkpoint"
+  ],
+  "scope": "Artifact consistency and exact environment replay; this audit does not recompute policy logits. See live-check.json for served policy replay.",
+  "artifact_sha256": {
+    "sokoban-levels.json": "7362bef580dc6298307d4dd0ee9bff7db41bb20ff5ff4007d212b60dab6180ae",
+    "sokoban-results.json": "84c61d837a780e34c0695466f068fafb70e936f6cff50ce5f631e8fcfc085a12",
+    "sokoban-demo.pt": "bc620b5dced30f0063adf23706886d69c901bb311d07c13bd3c205fe78c59ee3"
+  },
+  "splits": {
+    "train": {
+      "levels": 11151,
+      "layouts": 256
+    },
+    "dev": {
+      "levels": 128,
+      "layouts": 32,
+      "policies": {
+        "before": {
+          "count": 128,
+          "solved": 2,
+          "outcomes": {
+            "deterministic_loop": 126,
+            "solved": 2
+          }
+        },
+        "after": {
+          "count": 128,
+          "solved": 126,
+          "outcomes": {
+            "solved": 126,
+            "deterministic_loop": 2
+          }
+        },
+        "random": {
+          "count": 128,
+          "solved": 32,
+          "outcomes": {
+            "solved": 32,
+            "step_limit": 96
+          }
+        },
+        "greedy": {
+          "count": 128,
+          "solved": 22,
+          "outcomes": {
+            "deterministic_loop": 106,
+            "solved": 22
+          }
+        }
+      }
+    },
+    "test": {
+      "levels": 128,
+      "layouts": 32,
+      "policies": {
+        "before": {
+          "count": 128,
+          "solved": 2,
+          "outcomes": {
+            "deterministic_loop": 126,
+            "solved": 2
+          }
+        },
+        "after": {
+          "count": 128,
+          "solved": 122,
+          "outcomes": {
+            "solved": 122,
+            "deterministic_loop": 6
+          }
+        },
+        "random": {
+          "count": 128,
+          "solved": 28,
+          "outcomes": {
+            "step_limit": 100,
+            "solved": 28
+          }
+        },
+        "greedy": {
+          "count": 128,
+          "solved": 14,
+          "outcomes": {
+            "deterministic_loop": 114,
+            "solved": 14
+          }
+        }
+      }
+    },
+    "ood": {
+      "levels": 48,
+      "layouts": 12,
+      "policies": {
+        "before": {
+          "count": 48,
+          "solved": 0,
+          "outcomes": {
+            "deterministic_loop": 48
+          }
+        },
+        "after": {
+          "count": 48,
+          "solved": 25,
+          "outcomes": {
+            "solved": 25,
+            "deterministic_loop": 23
+          }
+        },
+        "random": {
+          "count": 48,
+          "solved": 4,
+          "outcomes": {
+            "step_limit": 44,
+            "solved": 4
+          }
+        },
+        "greedy": {
+          "count": 48,
+          "solved": 2,
+          "outcomes": {
+            "deterministic_loop": 46,
+            "solved": 2
+          }
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 5.349
+}

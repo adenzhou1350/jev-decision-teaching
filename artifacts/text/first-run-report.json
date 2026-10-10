@@ -1,0 +1,1523 @@
+{
+  "scope": "hand-authored teaching development set, not production or JevBench",
+  "seed": 42,
+  "model": "local Qwen3.5-0.8B snapshot (absolute path redacted)",
+  "revision": null,
+  "model_fingerprint": {
+    "config.json": {
+      "bytes": 2907,
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204"
+    },
+    "model.safetensors-00001-of-00001.safetensors": {
+      "bytes": 1746942600,
+      "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696"
+    },
+    "model.safetensors.index.json": {
+      "bytes": 50900,
+      "sha256": "d8a08838a613b025eb7952ed9db11696213e57e76a375661ef5c12f9dd5dcf4e"
+    },
+    "tokenizer.json": {
+      "bytes": 12807982,
+      "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+    },
+    "tokenizer_config.json": {
+      "bytes": 16709,
+      "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c"
+    }
+  },
+  "data_sha256": "982f8ca1edb61078c9bc301b9e594bb88e9a6a23de15c2d395b2a100144e6b84",
+  "device": "cuda",
+  "torch": "2.11.0+cu128",
+  "python": "3.14.3",
+  "feature_seconds": 19.2624044999975,
+  "head_train_seconds": 0.15327629999956116,
+  "trainable_parameters": 1024,
+  "backbone_trainable_parameters": 0,
+  "training": {
+    "selected_step": 200,
+    "dev_nll": 0.1914764642715454,
+    "history": [
+      {
+        "step": 0,
+        "dev_nll": 1.394150972366333
+      },
+      {
+        "step": 25,
+        "dev_nll": 0.41921257972717285
+      },
+      {
+        "step": 50,
+        "dev_nll": 0.2921101748943329
+      },
+      {
+        "step": 75,
+        "dev_nll": 0.2438986599445343
+      },
+      {
+        "step": 100,
+        "dev_nll": 0.22476030886173248
+      },
+      {
+        "step": 125,
+        "dev_nll": 0.2129056751728058
+      },
+      {
+        "step": 150,
+        "dev_nll": 0.2040107548236847
+      },
+      {
+        "step": 175,
+        "dev_nll": 0.1970527023077011
+      },
+      {
+        "step": 200,
+        "dev_nll": 0.1914764642715454
+      }
+    ]
+  },
+  "splits": {
+    "train": {
+      "random_head": {
+        "count": 24,
+        "correct": 4,
+        "accuracy": 0.16666666666666666,
+        "nll": 1.3967256496349971,
+        "brier_sum_per_question": 0.7552476326624552,
+        "head_permutation_max_error": 2.9802322387695312e-08,
+        "predictions": [
+          {
+            "id": "train-00",
+            "state": "暂停一下",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.26153451204299927,
+              "cancel": 0.2550012469291687,
+              "continue": 0.2517699897289276,
+              "other": 0.23169423639774323
+            }
+          },
+          {
+            "id": "train-01",
+            "state": "先停一会，等我回来",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25742170214653015,
+              "cancel": 0.25410816073417664,
+              "continue": 0.255842387676239,
+              "other": 0.2326277792453766
+            }
+          },
+          {
+            "id": "train-02",
+            "state": "暂时别做了，保留进度",
+            "target": "pause",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.24649040400981903,
+              "cancel": 0.25630664825439453,
+              "continue": 0.2570161521434784,
+              "other": 0.24018679559230804
+            }
+          },
+          {
+            "id": "train-03",
+            "state": "我接个电话，先暂停",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2573833465576172,
+              "cancel": 0.2569306790828705,
+              "continue": 0.252719521522522,
+              "other": 0.23296642303466797
+            }
+          },
+          {
+            "id": "train-04",
+            "state": "等一等，待会再继续",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2572348117828369,
+              "cancel": 0.2554962933063507,
+              "continue": 0.25501903891563416,
+              "other": 0.2322499006986618
+            }
+          },
+          {
+            "id": "train-05",
+            "state": "先挂起这个任务",
+            "target": "pause",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2514961361885071,
+              "cancel": 0.2595664858818054,
+              "continue": 0.2540168762207031,
+              "other": 0.23492050170898438
+            }
+          },
+          {
+            "id": "train-06",
+            "state": "取消这个任务",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25662747025489807,
+              "cancel": 0.2549363672733307,
+              "continue": 0.2553062438964844,
+              "other": 0.23312987387180328
+            }
+          },
+          {
+            "id": "train-07",
+            "state": "不用做了，结束吧",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2596462368965149,
+              "cancel": 0.2528455853462219,
+              "continue": 0.2545871138572693,
+              "other": 0.23292110860347748
+            }
+          },
+          {
+            "id": "train-08",
+            "state": "把现在的任务终止掉",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2617676854133606,
+              "cancel": 0.2510410249233246,
+              "continue": 0.25382062792778015,
+              "other": 0.23337072134017944
+            }
+          },
+          {
+            "id": "train-09",
+            "state": "这件事不需要了",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25761210918426514,
+              "cancel": 0.25371795892715454,
+              "continue": 0.25488579273223877,
+              "other": 0.23378410935401917
+            }
+          },
+          {
+            "id": "train-10",
+            "state": "撤销当前任务",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2578135132789612,
+              "cancel": 0.25610625743865967,
+              "continue": 0.2492898404598236,
+              "other": 0.23679032921791077
+            }
+          },
+          {
+            "id": "train-11",
+            "state": "别继续了，直接结束",
+            "target": "cancel",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.2560005784034729,
+              "cancel": 0.2526683509349823,
+              "continue": 0.2582266628742218,
+              "other": 0.2331044226884842
+            }
+          },
+          {
+            "id": "train-12",
+            "state": "继续执行",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2555859088897705,
+              "cancel": 0.2666393518447876,
+              "continue": 0.24782396852970123,
+              "other": 0.22995075583457947
+            }
+          },
+          {
+            "id": "train-13",
+            "state": "恢复刚刚的任务",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25729840993881226,
+              "cancel": 0.25945931673049927,
+              "continue": 0.2482541799545288,
+              "other": 0.2349880039691925
+            }
+          },
+          {
+            "id": "train-14",
+            "state": "接着做吧",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2573336064815521,
+              "cancel": 0.26264914870262146,
+              "continue": 0.2506099045276642,
+              "other": 0.22940728068351746
+            }
+          },
+          {
+            "id": "train-15",
+            "state": "现在可以继续了",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2565314769744873,
+              "cancel": 0.26370134949684143,
+              "continue": 0.25164708495140076,
+              "other": 0.2281200885772705
+            }
+          },
+          {
+            "id": "train-16",
+            "state": "我回来了，恢复运行",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2547605633735657,
+              "cancel": 0.2633330225944519,
+              "continue": 0.24848546087741852,
+              "other": 0.23342089354991913
+            }
+          },
+          {
+            "id": "train-17",
+            "state": "不要停，继续干",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2595440447330475,
+              "cancel": 0.25421595573425293,
+              "continue": 0.2523115277290344,
+              "other": 0.23392842710018158
+            }
+          },
+          {
+            "id": "train-18",
+            "state": "你好呀",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2496095597743988,
+              "cancel": 0.26216861605644226,
+              "continue": 0.25643980503082275,
+              "other": 0.2317819744348526
+            }
+          },
+          {
+            "id": "train-19",
+            "state": "今天真热",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25136038661003113,
+              "cancel": 0.26624393463134766,
+              "continue": 0.25265103578567505,
+              "other": 0.22974467277526855
+            }
+          },
+          {
+            "id": "train-20",
+            "state": "暂停是什么意思",
+            "target": "other",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25890037417411804,
+              "cancel": 0.25317567586898804,
+              "continue": 0.25437042117118835,
+              "other": 0.23355358839035034
+            }
+          },
+          {
+            "id": "train-21",
+            "state": "你支持取消任务吗",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2555364966392517,
+              "cancel": 0.2589598298072815,
+              "continue": 0.2542131841182709,
+              "other": 0.23129045963287354
+            }
+          },
+          {
+            "id": "train-22",
+            "state": "讲个笑话",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25163519382476807,
+              "cancel": 0.26361092925071716,
+              "continue": 0.2511391341686249,
+              "other": 0.2336147576570511
+            }
+          },
+          {
+            "id": "train-23",
+            "state": "我在想该怎么办",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2540394067764282,
+              "cancel": 0.26249369978904724,
+              "continue": 0.2529904544353485,
+              "other": 0.23047645390033722
+            }
+          }
+        ]
+      },
+      "trained_head": {
+        "count": 24,
+        "correct": 24,
+        "accuracy": 1.0,
+        "nll": 0.020873067240851622,
+        "brier_sum_per_question": 0.0010378072541215033,
+        "head_permutation_max_error": 1.1920928955078125e-07,
+        "predictions": [
+          {
+            "id": "train-00",
+            "state": "暂停一下",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9863417744636536,
+              "cancel": 0.00617933040484786,
+              "continue": 0.0034720038529485464,
+              "other": 0.00400678813457489
+            }
+          },
+          {
+            "id": "train-01",
+            "state": "先停一会，等我回来",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.996597945690155,
+              "cancel": 0.0013657029485329986,
+              "continue": 0.0005464080604724586,
+              "other": 0.0014900353271514177
+            }
+          },
+          {
+            "id": "train-02",
+            "state": "暂时别做了，保留进度",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9873064756393433,
+              "cancel": 0.004979592747986317,
+              "continue": 0.005813486874103546,
+              "other": 0.0019004674395546317
+            }
+          },
+          {
+            "id": "train-03",
+            "state": "我接个电话，先暂停",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9758380055427551,
+              "cancel": 0.01049490924924612,
+              "continue": 0.007923487573862076,
+              "other": 0.005743544548749924
+            }
+          },
+          {
+            "id": "train-04",
+            "state": "等一等，待会再继续",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9443762302398682,
+              "cancel": 0.008621444925665855,
+              "continue": 0.02118712291121483,
+              "other": 0.02581511251628399
+            }
+          },
+          {
+            "id": "train-05",
+            "state": "先挂起这个任务",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9550179243087769,
+              "cancel": 0.008578745648264885,
+              "continue": 0.0014064881252124906,
+              "other": 0.034996915608644485
+            }
+          },
+          {
+            "id": "train-06",
+            "state": "取消这个任务",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.005193440243601799,
+              "cancel": 0.9861482381820679,
+              "continue": 0.004667920060455799,
+              "other": 0.003990412689745426
+            }
+          },
+          {
+            "id": "train-07",
+            "state": "不用做了，结束吧",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.005638625472784042,
+              "cancel": 0.9889765381813049,
+              "continue": 0.0003675002953968942,
+              "other": 0.005017364863306284
+            }
+          },
+          {
+            "id": "train-08",
+            "state": "把现在的任务终止掉",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.005768637638539076,
+              "cancel": 0.9939154982566833,
+              "continue": 0.00027449848130345345,
+              "other": 4.1365045035490766e-05
+            }
+          },
+          {
+            "id": "train-09",
+            "state": "这件事不需要了",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.008163781836628914,
+              "cancel": 0.9603144526481628,
+              "continue": 0.0007286589243449271,
+              "other": 0.03079310618340969
+            }
+          },
+          {
+            "id": "train-10",
+            "state": "撤销当前任务",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.0009149198303930461,
+              "cancel": 0.976733922958374,
+              "continue": 0.0047172661870718,
+              "other": 0.017633803188800812
+            }
+          },
+          {
+            "id": "train-11",
+            "state": "别继续了，直接结束",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.01856197975575924,
+              "cancel": 0.9734162092208862,
+              "continue": 0.0055364095605909824,
+              "other": 0.0024853164795786142
+            }
+          },
+          {
+            "id": "train-12",
+            "state": "继续执行",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.0004767070058733225,
+              "cancel": 9.543982741888613e-05,
+              "continue": 0.9989426732063293,
+              "other": 0.00048510334454476833
+            }
+          },
+          {
+            "id": "train-13",
+            "state": "恢复刚刚的任务",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.006706443149596453,
+              "cancel": 0.004428032319992781,
+              "continue": 0.9850494265556335,
+              "other": 0.003816088428720832
+            }
+          },
+          {
+            "id": "train-14",
+            "state": "接着做吧",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 1.9371413145563565e-05,
+              "cancel": 3.425898103159852e-05,
+              "continue": 0.9989629983901978,
+              "other": 0.000983431818895042
+            }
+          },
+          {
+            "id": "train-15",
+            "state": "现在可以继续了",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.0027781969401985407,
+              "cancel": 0.00517937820404768,
+              "continue": 0.9890255331993103,
+              "other": 0.0030168865341693163
+            }
+          },
+          {
+            "id": "train-16",
+            "state": "我回来了，恢复运行",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.015710342675447464,
+              "cancel": 0.0005897784139961004,
+              "continue": 0.9751937389373779,
+              "other": 0.008506090380251408
+            }
+          },
+          {
+            "id": "train-17",
+            "state": "不要停，继续干",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.006934671197086573,
+              "cancel": 0.012422614730894566,
+              "continue": 0.9779389500617981,
+              "other": 0.002703665988519788
+            }
+          },
+          {
+            "id": "train-18",
+            "state": "你好呀",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.0006178380572237074,
+              "cancel": 0.0006865760078653693,
+              "continue": 0.0006045189220458269,
+              "other": 0.9980910420417786
+            }
+          },
+          {
+            "id": "train-19",
+            "state": "今天真热",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.0068357763811945915,
+              "cancel": 0.006757400464266539,
+              "continue": 0.00903924461454153,
+              "other": 0.9773675799369812
+            }
+          },
+          {
+            "id": "train-20",
+            "state": "暂停是什么意思",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.042586300522089005,
+              "cancel": 0.0017825772520154715,
+              "continue": 0.006759673357009888,
+              "other": 0.9488714337348938
+            }
+          },
+          {
+            "id": "train-21",
+            "state": "你支持取消任务吗",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.0004294888931326568,
+              "cancel": 0.03578309714794159,
+              "continue": 0.003488674759864807,
+              "other": 0.9602987170219421
+            }
+          },
+          {
+            "id": "train-22",
+            "state": "讲个笑话",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.010851304978132248,
+              "cancel": 0.003006068291142583,
+              "continue": 0.010098167695105076,
+              "other": 0.9760444164276123
+            }
+          },
+          {
+            "id": "train-23",
+            "state": "我在想该怎么办",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.0020246580243110657,
+              "cancel": 0.0010497354669496417,
+              "continue": 0.0004436711024027318,
+              "other": 0.9964818954467773
+            }
+          }
+        ]
+      },
+      "uniform_expected_accuracy": 0.25,
+      "majority_accuracy": 0.25
+    },
+    "dev": {
+      "random_head": {
+        "count": 8,
+        "correct": 1,
+        "accuracy": 0.125,
+        "nll": 1.3941509872674942,
+        "brier_sum_per_question": 0.7539067640900612,
+        "head_permutation_max_error": 2.9802322387695312e-08,
+        "predictions": [
+          {
+            "id": "dev-00",
+            "state": "稍等，先别往下做",
+            "target": "pause",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25256112217903137,
+              "cancel": 0.2584203779697418,
+              "continue": 0.25116971135139465,
+              "other": 0.23784872889518738
+            }
+          },
+          {
+            "id": "dev-01",
+            "state": "临时停一下，我确认一下",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25855302810668945,
+              "cancel": 0.2570054531097412,
+              "continue": 0.25216782093048096,
+              "other": 0.2322736382484436
+            }
+          },
+          {
+            "id": "dev-02",
+            "state": "当前工作作废，不用再处理",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2589821219444275,
+              "cancel": 0.2497950941324234,
+              "continue": 0.2541428506374359,
+              "other": 0.2370799481868744
+            }
+          },
+          {
+            "id": "dev-03",
+            "state": "彻底结束这次任务",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25756722688674927,
+              "cancel": 0.25593462586402893,
+              "continue": 0.25226733088493347,
+              "other": 0.23423075675964355
+            }
+          },
+          {
+            "id": "dev-04",
+            "state": "接上之前的进度继续",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2523185610771179,
+              "cancel": 0.26205986738204956,
+              "continue": 0.2543279826641083,
+              "other": 0.23129355907440186
+            }
+          },
+          {
+            "id": "dev-05",
+            "state": "按原计划往下执行",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25290507078170776,
+              "cancel": 0.26002565026283264,
+              "continue": 0.25135812163352966,
+              "other": 0.2357112616300583
+            }
+          },
+          {
+            "id": "dev-06",
+            "state": "任务进度怎么样",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2527824342250824,
+              "cancel": 0.2612387537956238,
+              "continue": 0.25525951385498047,
+              "other": 0.2307194173336029
+            }
+          },
+          {
+            "id": "dev-07",
+            "state": "我喜欢这首歌",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.24916581809520721,
+              "cancel": 0.26502272486686707,
+              "continue": 0.25309717655181885,
+              "other": 0.23271428048610687
+            }
+          }
+        ]
+      },
+      "trained_head": {
+        "count": 8,
+        "correct": 7,
+        "accuracy": 0.875,
+        "nll": 0.19147646232886473,
+        "brier_sum_per_question": 0.09796812591878279,
+        "head_permutation_max_error": 1.1920928955078125e-07,
+        "predictions": [
+          {
+            "id": "dev-00",
+            "state": "稍等，先别往下做",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.8900701999664307,
+              "cancel": 0.04958667233586311,
+              "continue": 0.0014313558349385858,
+              "other": 0.05891179293394089
+            }
+          },
+          {
+            "id": "dev-01",
+            "state": "临时停一下，我确认一下",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9988732933998108,
+              "cancel": 0.00029858009656891227,
+              "continue": 0.00045930728083476424,
+              "other": 0.00036889134207740426
+            }
+          },
+          {
+            "id": "dev-02",
+            "state": "当前工作作废，不用再处理",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.029331063851714134,
+              "cancel": 0.969990074634552,
+              "continue": 0.0005282167694531381,
+              "other": 0.00015072521637193859
+            }
+          },
+          {
+            "id": "dev-03",
+            "state": "彻底结束这次任务",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.00011072454071836546,
+              "cancel": 0.9990822076797485,
+              "continue": 0.0007525801192969084,
+              "other": 5.4376265325117856e-05
+            }
+          },
+          {
+            "id": "dev-04",
+            "state": "接上之前的进度继续",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.0005908500752411783,
+              "cancel": 3.26866029354278e-05,
+              "continue": 0.9991680383682251,
+              "other": 0.00020840539946220815
+            }
+          },
+          {
+            "id": "dev-05",
+            "state": "按原计划往下执行",
+            "target": "continue",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.14890167117118835,
+              "cancel": 0.14697091281414032,
+              "continue": 0.2761751711368561,
+              "other": 0.42795228958129883
+            }
+          },
+          {
+            "id": "dev-06",
+            "state": "任务进度怎么样",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.003821302903816104,
+              "cancel": 0.0030252814758569,
+              "continue": 0.07721150666475296,
+              "other": 0.9159418940544128
+            }
+          },
+          {
+            "id": "dev-07",
+            "state": "我喜欢这首歌",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.0026516399811953306,
+              "cancel": 0.001975259743630886,
+              "continue": 0.002832382218912244,
+              "other": 0.9925407767295837
+            }
+          }
+        ]
+      },
+      "uniform_expected_accuracy": 0.25,
+      "majority_accuracy": 0.25
+    },
+    "test": {
+      "random_head": {
+        "count": 12,
+        "correct": 1,
+        "accuracy": 0.08333333333333333,
+        "nll": 1.3956884642442067,
+        "brier_sum_per_question": 0.7546924402316412,
+        "head_permutation_max_error": 2.9802322387695312e-08,
+        "predictions": [
+          {
+            "id": "test-00",
+            "state": "先缓缓，过会再干",
+            "target": "pause",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2538624703884125,
+              "cancel": 0.2555893063545227,
+              "continue": 0.2535184919834137,
+              "other": 0.23702968657016754
+            }
+          },
+          {
+            "id": "test-01",
+            "state": "手头的事先搁着，别丢进度",
+            "target": "pause",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25235241651535034,
+              "cancel": 0.25898614525794983,
+              "continue": 0.2568065822124481,
+              "other": 0.23185482621192932
+            }
+          },
+          {
+            "id": "test-02",
+            "state": "停片刻等我的消息",
+            "target": "pause",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2585931718349457,
+              "cancel": 0.260010302066803,
+              "continue": 0.24998004734516144,
+              "other": 0.2314165234565735
+            }
+          },
+          {
+            "id": "test-03",
+            "state": "这单不做了，直接撤掉",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25863122940063477,
+              "cancel": 0.24905480444431305,
+              "continue": 0.2573021352291107,
+              "other": 0.23501184582710266
+            }
+          },
+          {
+            "id": "test-04",
+            "state": "到此为止，后面全都不用做",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2535684406757355,
+              "cancel": 0.25880879163742065,
+              "continue": 0.24708738923072815,
+              "other": 0.24053530395030975
+            }
+          },
+          {
+            "id": "test-05",
+            "state": "结束目前这项工作，不再恢复",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.26134243607521057,
+              "cancel": 0.24991105496883392,
+              "continue": 0.25572624802589417,
+              "other": 0.23302029073238373
+            }
+          },
+          {
+            "id": "test-06",
+            "state": "从上次停下的地方接着干",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2592875063419342,
+              "cancel": 0.2579241394996643,
+              "continue": 0.2516353726387024,
+              "other": 0.2311529964208603
+            }
+          },
+          {
+            "id": "test-07",
+            "state": "解除暂停，往后执行",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.25938838720321655,
+              "cancel": 0.25244227051734924,
+              "continue": 0.25091052055358887,
+              "other": 0.23725883662700653
+            }
+          },
+          {
+            "id": "test-08",
+            "state": "不用等我了，现在继续",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2609363794326782,
+              "cancel": 0.2573201060295105,
+              "continue": 0.25517702102661133,
+              "other": 0.22656652331352234
+            }
+          },
+          {
+            "id": "test-09",
+            "state": "还需要多少时间",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25844869017601013,
+              "cancel": 0.2619369328022003,
+              "continue": 0.2519056499004364,
+              "other": 0.22770875692367554
+            }
+          },
+          {
+            "id": "test-10",
+            "state": "我不太明白你的意思",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2537824213504791,
+              "cancel": 0.25751957297325134,
+              "continue": 0.2525562047958374,
+              "other": 0.23614183068275452
+            }
+          },
+          {
+            "id": "test-11",
+            "state": "下午好，辛苦了",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25073835253715515,
+              "cancel": 0.2628878355026245,
+              "continue": 0.25604137778282166,
+              "other": 0.23033249378204346
+            }
+          }
+        ]
+      },
+      "trained_head": {
+        "count": 12,
+        "correct": 11,
+        "accuracy": 0.9166666666666666,
+        "nll": 0.4038935265270993,
+        "brier_sum_per_question": 0.19391837595420233,
+        "head_permutation_max_error": 1.1920928955078125e-07,
+        "predictions": [
+          {
+            "id": "test-00",
+            "state": "先缓缓，过会再干",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.5232452154159546,
+              "cancel": 0.01367518212646246,
+              "continue": 0.01574627496302128,
+              "other": 0.4473332464694977
+            }
+          },
+          {
+            "id": "test-01",
+            "state": "手头的事先搁着，别丢进度",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9974283576011658,
+              "cancel": 0.0008037190418690443,
+              "continue": 0.00036544824251905084,
+              "other": 0.0014024563133716583
+            }
+          },
+          {
+            "id": "test-02",
+            "state": "停片刻等我的消息",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9273784160614014,
+              "cancel": 0.00838419608771801,
+              "continue": 0.011458426713943481,
+              "other": 0.05277898535132408
+            }
+          },
+          {
+            "id": "test-03",
+            "state": "这单不做了，直接撤掉",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.03186322748661041,
+              "cancel": 0.9554102420806885,
+              "continue": 0.0023982615675777197,
+              "other": 0.010328195989131927
+            }
+          },
+          {
+            "id": "test-04",
+            "state": "到此为止，后面全都不用做",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.09867595136165619,
+              "cancel": 0.8631847500801086,
+              "continue": 0.001983680995181203,
+              "other": 0.03615560382604599
+            }
+          },
+          {
+            "id": "test-05",
+            "state": "结束目前这项工作，不再恢复",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.02775951847434044,
+              "cancel": 0.8644319176673889,
+              "continue": 0.10779096931219101,
+              "other": 1.752060961734969e-05
+            }
+          },
+          {
+            "id": "test-06",
+            "state": "从上次停下的地方接着干",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.03514314442873001,
+              "cancel": 0.000845941889565438,
+              "continue": 0.961611270904541,
+              "other": 0.002399726305156946
+            }
+          },
+          {
+            "id": "test-07",
+            "state": "解除暂停，往后执行",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.06727037578821182,
+              "cancel": 0.894622802734375,
+              "continue": 0.03611043468117714,
+              "other": 0.0019962892401963472
+            }
+          },
+          {
+            "id": "test-08",
+            "state": "不用等我了，现在继续",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.14596562087535858,
+              "cancel": 0.07102292776107788,
+              "continue": 0.7747593522071838,
+              "other": 0.008252029307186604
+            }
+          },
+          {
+            "id": "test-09",
+            "state": "还需要多少时间",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.016892962157726288,
+              "cancel": 0.01015002466738224,
+              "continue": 0.029326967895030975,
+              "other": 0.943630039691925
+            }
+          },
+          {
+            "id": "test-10",
+            "state": "我不太明白你的意思",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.01237991452217102,
+              "cancel": 0.017052272334694862,
+              "continue": 0.0009672025335021317,
+              "other": 0.9696005582809448
+            }
+          },
+          {
+            "id": "test-11",
+            "state": "下午好，辛苦了",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.017514074221253395,
+              "cancel": 0.030583344399929047,
+              "continue": 0.027133792638778687,
+              "other": 0.9247687458992004
+            }
+          }
+        ]
+      },
+      "uniform_expected_accuracy": 0.25,
+      "majority_accuracy": 0.25
+    },
+    "challenge": {
+      "random_head": {
+        "count": 12,
+        "correct": 3,
+        "accuracy": 0.25,
+        "nll": 1.395319014787674,
+        "brier_sum_per_question": 0.7544187059005102,
+        "head_permutation_max_error": 2.9802322387695312e-08,
+        "predictions": [
+          {
+            "id": "challenge-00",
+            "state": "不要取消，只是暂停",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.26266971230506897,
+              "cancel": 0.25180184841156006,
+              "continue": 0.25078898668289185,
+              "other": 0.23473943769931793
+            }
+          },
+          {
+            "id": "challenge-01",
+            "state": "不是结束，先等五分钟",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2618758976459503,
+              "cancel": 0.25361528992652893,
+              "continue": 0.2514287233352661,
+              "other": 0.23308014869689941
+            }
+          },
+          {
+            "id": "challenge-02",
+            "state": "暂停，不要把任务删掉",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2611183822154999,
+              "cancel": 0.24980179965496063,
+              "continue": 0.25370994210243225,
+              "other": 0.23536980152130127
+            }
+          },
+          {
+            "id": "challenge-03",
+            "state": "不用暂停了，彻底取消",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.266215443611145,
+              "cancel": 0.24877212941646576,
+              "continue": 0.25183048844337463,
+              "other": 0.23318198323249817
+            }
+          },
+          {
+            "id": "challenge-04",
+            "state": "别恢复，这项任务已经作废",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.26649776101112366,
+              "cancel": 0.25193560123443604,
+              "continue": 0.24844978749752045,
+              "other": 0.2331167608499527
+            }
+          },
+          {
+            "id": "challenge-05",
+            "state": "这次不是临时停，是永久结束",
+            "target": "cancel",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2626936435699463,
+              "cancel": 0.24923792481422424,
+              "continue": 0.2537948489189148,
+              "other": 0.23427355289459229
+            }
+          },
+          {
+            "id": "challenge-06",
+            "state": "不要暂停，继续执行",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.258495032787323,
+              "cancel": 0.25565317273139954,
+              "continue": 0.2521264851093292,
+              "other": 0.23372529447078705
+            }
+          },
+          {
+            "id": "challenge-07",
+            "state": "取消刚才的暂停要求，接着做",
+            "target": "continue",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.2616567015647888,
+              "cancel": 0.25362977385520935,
+              "continue": 0.2517958879470825,
+              "other": 0.2329176366329193
+            }
+          },
+          {
+            "id": "challenge-08",
+            "state": "别结束，恢复运行",
+            "target": "continue",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2596888244152069,
+              "cancel": 0.26025664806365967,
+              "continue": 0.246193066239357,
+              "other": 0.23386140167713165
+            }
+          },
+          {
+            "id": "challenge-09",
+            "state": "他说了“取消任务”这四个字",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2591259181499481,
+              "cancel": 0.2595065236091614,
+              "continue": 0.2528477907180786,
+              "other": 0.2285197526216507
+            }
+          },
+          {
+            "id": "challenge-10",
+            "state": "如果我说暂停，你会怎么做",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2553137540817261,
+              "cancel": 0.2577706575393677,
+              "continue": 0.2544293999671936,
+              "other": 0.23248618841171265
+            }
+          },
+          {
+            "id": "challenge-11",
+            "state": "算了……我还没决定",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.25607845187187195,
+              "cancel": 0.2597450315952301,
+              "continue": 0.25459566712379456,
+              "other": 0.2295808047056198
+            }
+          }
+        ]
+      },
+      "trained_head": {
+        "count": 12,
+        "correct": 10,
+        "accuracy": 0.8333333333333334,
+        "nll": 0.4111042316071689,
+        "brier_sum_per_question": 0.2311815856131337,
+        "head_permutation_max_error": 1.1920928955078125e-07,
+        "predictions": [
+          {
+            "id": "challenge-00",
+            "state": "不要取消，只是暂停",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9109000563621521,
+              "cancel": 0.0416724756360054,
+              "continue": 0.014371184632182121,
+              "other": 0.033056315034627914
+            }
+          },
+          {
+            "id": "challenge-01",
+            "state": "不是结束，先等五分钟",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.6725199222564697,
+              "cancel": 0.1322479099035263,
+              "continue": 0.04946451261639595,
+              "other": 0.14576759934425354
+            }
+          },
+          {
+            "id": "challenge-02",
+            "state": "暂停，不要把任务删掉",
+            "target": "pause",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.9738905429840088,
+              "cancel": 0.021701855584979057,
+              "continue": 0.0036226578522473574,
+              "other": 0.0007849556859582663
+            }
+          },
+          {
+            "id": "challenge-03",
+            "state": "不用暂停了，彻底取消",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.015942122787237167,
+              "cancel": 0.976398766040802,
+              "continue": 0.004106505308300257,
+              "other": 0.0035524643026292324
+            }
+          },
+          {
+            "id": "challenge-04",
+            "state": "别恢复，这项任务已经作废",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.06411375105381012,
+              "cancel": 0.8549183011054993,
+              "continue": 0.07934544235467911,
+              "other": 0.0016225996660068631
+            }
+          },
+          {
+            "id": "challenge-05",
+            "state": "这次不是临时停，是永久结束",
+            "target": "cancel",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.09748440235853195,
+              "cancel": 0.8413711190223694,
+              "continue": 0.04631694778800011,
+              "other": 0.014827483333647251
+            }
+          },
+          {
+            "id": "challenge-06",
+            "state": "不要暂停，继续执行",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.04225091636180878,
+              "cancel": 0.019421739503741264,
+              "continue": 0.9373878836631775,
+              "other": 0.0009394376538693905
+            }
+          },
+          {
+            "id": "challenge-07",
+            "state": "取消刚才的暂停要求，接着做",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.2413174957036972,
+              "cancel": 0.37722066044807434,
+              "continue": 0.37950390577316284,
+              "other": 0.0019580302760004997
+            }
+          },
+          {
+            "id": "challenge-08",
+            "state": "别结束，恢复运行",
+            "target": "continue",
+            "choice": "continue",
+            "probabilities": {
+              "pause": 0.03832283243536949,
+              "cancel": 0.007280441932380199,
+              "continue": 0.95404452085495,
+              "other": 0.00035221880534663796
+            }
+          },
+          {
+            "id": "challenge-09",
+            "state": "他说了“取消任务”这四个字",
+            "target": "other",
+            "choice": "other",
+            "probabilities": {
+              "pause": 0.011233903467655182,
+              "cancel": 0.3304203152656555,
+              "continue": 0.0006190002895891666,
+              "other": 0.6577267646789551
+            }
+          },
+          {
+            "id": "challenge-10",
+            "state": "如果我说暂停，你会怎么做",
+            "target": "other",
+            "choice": "pause",
+            "probabilities": {
+              "pause": 0.6798709034919739,
+              "cancel": 0.027231452986598015,
+              "continue": 0.057669058442115784,
+              "other": 0.23522865772247314
+            }
+          },
+          {
+            "id": "challenge-11",
+            "state": "算了……我还没决定",
+            "target": "other",
+            "choice": "cancel",
+            "probabilities": {
+              "pause": 0.2993108928203583,
+              "cancel": 0.3594359755516052,
+              "continue": 0.013874020427465439,
+              "other": 0.32737910747528076
+            }
+          }
+        ]
+      },
+      "uniform_expected_accuracy": 0.25,
+      "majority_accuracy": 0.25
+    }
+  },
+  "transformers": "5.14.1",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "peak_allocated_mib": 1711.80029296875
+}
