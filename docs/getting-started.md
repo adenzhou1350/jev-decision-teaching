@@ -33,14 +33,13 @@ python3 -m venv .venv
 
 ## 2. 启用文本或页面按钮模型
 
-这两课需要额外依赖和完整 Qwen3.5-0.8B 快照。下载前可查看 [官方模型页](https://huggingface.co/Qwen/Qwen3.5-0.8B)；模型底座不包含在本仓库。
+这两课需要额外依赖和完整 Qwen3.5-0.8B 快照。下载前可查看 [官方模型页](https://huggingface.co/Qwen/Qwen3.5-0.8B)；模型底座不包含在本仓库。下面下载的快照用于训练自己的 head，不直接交给随附的页面 head。
 
 Windows PowerShell：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-models.txt
 .\.venv\Scripts\hf.exe download Qwen/Qwen3.5-0.8B --local-dir models/Qwen3.5-0.8B
-.\.venv\Scripts\python.exe -m jev_teaching --model models/Qwen3.5-0.8B --device cuda
 ```
 
 Linux / macOS：
@@ -48,12 +47,13 @@ Linux / macOS：
 ```bash
 .venv/bin/python -m pip install -r requirements-models.txt
 .venv/bin/hf download Qwen/Qwen3.5-0.8B --local-dir models/Qwen3.5-0.8B
-.venv/bin/python -m jev_teaching --model models/Qwen3.5-0.8B --device cuda
 ```
 
-没有 NVIDIA CUDA 可用 `--device cpu`；CPU 语言模型性能未作对照测量。需要 GPU 时按 [PyTorch 官方安装选择器](https://pytorch.org/get-started/locally/) 为同一个 `.venv` 安装匹配版本，不要只在系统 Python 中安装。
+下载完成后，页面课程接着做[训练 head → 导出 → 启动个人演示目录](#页面按钮给自己的快照训练-head)；文本课程按[第一课](lessons/01-text.md)训练和调用。训练与启动要使用同一份本地快照。
 
-服务首次运行浏览器模型时核验文件指纹并加载底座。同名模型的不同快照也可能与随附 head 不匹配；遇到不匹配，按下一节重训并导出自己的 head。模型概率未经校准，当前浏览器测试完成率为 70.8%，页面展示的失败是预期的实验结果。
+后面的训练和服务命令中，没有 NVIDIA CUDA 可用 `--device cpu`；CPU 语言模型性能未作对照测量。需要 GPU 时按 [PyTorch 官方安装选择器](https://pytorch.org/get-started/locally/) 为同一个 `.venv` 安装匹配版本，不要只在系统 Python 中安装。
+
+随附页面 head 的[报告](../artifacts/browser/browser-results.json)记录了底座文件指纹，公开记录未给出对应的 Hugging Face revision。默认下载会取得当时的模型快照，不能据此保证与随附 head 匹配；已有匹配快照时，可走下方的[单独启动路径](#已有匹配快照运行随附页面-head)。
 
 若虚拟环境没有 `hf` 可执行文件，可在该环境安装或更新 `huggingface_hub`，或按官方模型页说明下载完整快照。不要只下载配置文件；模型目录需要 tokenizer、配置及完整权重。
 
@@ -106,6 +106,24 @@ Linux / macOS：
 导出后文件分别放在 `<dest>/sokoban/` 和 `<dest>/browser/`。已有自己的推箱子 run 时，可直接同时传入 `--sokoban-run` 和 `--browser-run`，无需 `--include-bundled-sokoban`。导出工具会拒绝覆盖已有文件；只有明确要替换自己选定的结果时才加 `--overwrite`。
 
 更小的文本决策头训练与单条预测见 [第一课](lessons/01-text.md)，其输出不直接作为网页浏览器模型使用。
+
+### 已有匹配快照：运行随附页面 head
+
+仅在本地快照与[随附报告中的文件指纹](../artifacts/browser/browser-results.json)逐项匹配时使用。先停掉已运行的服务，再从仓库根目录启动：
+
+Windows PowerShell：
+
+```powershell
+.\.venv\Scripts\python.exe -m jev_teaching --model models/Qwen3.5-0.8B --device cuda
+```
+
+Linux / macOS：
+
+```bash
+.venv/bin/python -m jev_teaching --model models/Qwen3.5-0.8B --device cuda
+```
+
+这条路径使用随附的 `artifacts/`，服务首次运行页面模型时核验底座文件并加载。若指纹不匹配，回到上面的个人 head 训练流程，不绕过校验。随附页面模型的测试完成率为 70.8%，概率未经校准；这个数字不代表你重训的 head 会得到相同结果。
 
 ## 4. 复核而不训练
 

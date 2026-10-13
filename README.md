@@ -36,7 +36,9 @@ python3 -m venv .venv
 
 ![推箱子演示](docs/assets/demo-sokoban.jpg)
 
-遇到安装问题，或想启用页面按钮模型，见 [安装与运行指南](docs/getting-started.md)。本项目已在原生 Windows 上实测，Linux/macOS 的上述入口尚未逐平台验证。
+遇到安装问题，见 [安装与运行指南](docs/getting-started.md)。本项目已在原生 Windows 上实测，Linux/macOS 的上述入口尚未逐平台验证。
+
+页面按钮课程需要另外下载 Qwen 底座，再[训练自己的 head、导出并启动个人演示目录](docs/getting-started.md#页面按钮给自己的快照训练-head)。随附页面 head 有底座文件指纹，但公开记录没有对应的 Hugging Face revision；不能假定默认下载的快照与它匹配。上面的 CPU 推箱子试玩不受这个要求影响。
 
 ## 接下来学什么
 
